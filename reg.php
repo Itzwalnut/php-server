@@ -2,8 +2,9 @@
     require 'database.php';
     if (isset($_POST['submit'])) {
         $userid = $_POST['userid'];
-        $nick_name = $_POST['nick_name'];
-        $email = $_POST['email'];
+        // Use htmlspecialchars to prevent XSS (milestone 2/3)
+        $nick_name = htmlspecialchars($_POST['nick_name'], ENT_QUOTES, 'UTF-8');
+        $email = htmlspecialchars($_POST['email'], ENT_QUOTES, 'UTF-8');
         $age = $_POST['age'];
         $gender = $_POST['gender'];
         $password = $_POST['password'];
@@ -87,7 +88,7 @@
     <h2>Registration</h2>
     <form name="regform" action="" method="post" enctype="multipart/form-data">
         <label>Userid:</label><br>
-        <input type="text" name="userid" required><br>
+        <input type="number" name="userid" required><br>
         <label>Nick name:</label><br>
         <input type="text" name="nick_name" required><br>
         <label>Email:</label><br>

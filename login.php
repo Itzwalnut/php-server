@@ -23,8 +23,9 @@
     $description = htmlspecialchars($row['description']);
 
     if (isset($_POST['advertise'])) {
-        $expertise_area = $_POST['expertise_area'];
-        $description = $_POST['description'];
+        // Sanitize user input to prevent XSS (milestone 2/3)
+        $expertise_area = htmlspecialchars($_POST['expertise_area'], ENT_QUOTES, 'UTF-8');
+        $description = htmlspecialchars($_POST['description'], ENT_QUOTES, 'UTF-8');
 
         $update_query = "UPDATE reg SET expertise_area = '$expertise_area', description = '$description' WHERE login_id = '$userid'";
         mysqli_query($conn, $update_query);
